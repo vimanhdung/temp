@@ -1,0 +1,3573 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "beego Test API",
+        "description": "beego has a very cool tools to autogenerate documents for your API",
+        "version": "1.0.0",
+        "termsOfService": "http://beego.me/",
+        "contact": {
+            "email": "astaxie@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "basePath": "/v1",
+    "paths": {
+        "/account/": {
+            "get": {
+                "tags": [
+                    "account"
+                ],
+                "description": "get AdminAccounts",
+                "operationId": "AdminAccountsController.Get List Acount",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "hotelId",
+                        "description": "hotel id",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fullName",
+                        "description": "account full name",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "email",
+                        "description": "account email",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "status",
+                        "description": "account status",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Default *.Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerListAccount"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "description": "create AdminAccounts",
+                "operationId": "AdminAccountsController.Create Admin Account",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for AdminAccounts content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.InsertAccountFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Add new account success",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDetailAccount"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 224 : Fields value not exists \u003cbr\u003e 221 : Parse json body false \u003cbr\u003e 215 : Incorrect password format (Password must contain at least eight characters to 60 characters and uppercase and number) \u003cbr\u003e 217 : Field required \u003cbr\u003e 213 : Invalid Email format \u003cbr\u003e 210 : Field not numeric \u003cbr\u003e 301 : Account Exists \u003cbr\u003e 303 : Save Database false"
+                    }
+                }
+            }
+        },
+        "/account/update/myaccount": {
+            "put": {
+                "tags": [
+                    "account"
+                ],
+                "description": "Update My Account",
+                "operationId": "AdminAccountsController.Put",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for update my account infomation",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateMyAccount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update Success",
+                        "schema": {
+                            "$ref": "#/definitions/models.JsonResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "104 : Invalid Token \u003cbr\u003e 221 : Parse json false \u003cbr\u003e 210 : Phone is not numeric \u003cbr\u003e 303 : Update false"
+                    }
+                }
+            }
+        },
+        "/account/{id}": {
+            "get": {
+                "tags": [
+                    "account"
+                ],
+                "description": "get AdminAccounts by id",
+                "operationId": "AdminAccountsController.Detail",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Success",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDetailAccount"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 302 : Account not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "account"
+                ],
+                "description": "update the AdminAccounts",
+                "operationId": "AdminAccountsController.Update Account",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for AdminAccounts content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateAccountFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update account success",
+                        "schema": {
+                            "$ref": "#/definitions/models.AddAdminAccountStruct"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 224 : Fields value not exists \u003cbr\u003e 221 : Parse json body false \u003cbr\u003e 215 : Incorrect password format (Password must contain at least eight characters to 60 characters and uppercase and number) \u003cbr\u003e 217 : Field required \u003cbr\u003e 213 : Valid Email format \u003cbr\u003e 210 : Field not numeric \u003cbr\u003e 301 : Email Exists \u003cbr\u003e 303 : Save Database false"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "account"
+                ],
+                "description": "delete the AdminAccounts",
+                "operationId": "AdminAccountsController.Delete",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete success!",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 302 : Account Not Found \u003cbr\u003e 303 : Delete False"
+                    }
+                }
+            }
+        },
+        "/auth/changePassword": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Change Password",
+                "operationId": "AuthController.Change Password",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for change password",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ChangePassFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Change Password Success",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 221 : Parse json false \u003cbr\u003e 111 : Incorrect password \u003cbr\u003e 215 : Incorrect password format (Password must contain at least eight characters to 60 characters and uppercase and number and new password must be different from your previous password) \u003cbr\u003e 217 : Fields required"
+                    }
+                }
+            }
+        },
+        "/auth/cms/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Auth Login For CMS",
+                "operationId": "Login.CMS Login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for Login CMS",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login Success",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "217 : Fields required \u003cbr\u003e 213 : Email format invalid \u003cbr\u003e 101 : Permission denied \u003cbr\u003e 111 : Password incorrect \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            }
+        },
+        "/auth/forgotPassword/confirmCode": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Input code verify",
+                "operationId": "ForgotPassword.Confirm Code",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for Input new password",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ForgotConfirmCode"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Code exactly",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDefault"
+                        }
+                    },
+                    "403": {
+                        "description": "217 : Fields required \u003cbr\u003e 111 : Incorrect code \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            }
+        },
+        "/auth/forgotPassword/inputNewPassword": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Input code verify \u0026 new password",
+                "operationId": "ForgotPassword.Input New Password",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for Input new password",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ForgotNewPassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A new password has been created",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDefault"
+                        }
+                    },
+                    "403": {
+                        "description": "217 : Fields required \u003cbr\u003e 111 : Token reset incorrect \u003cbr\u003e 215 : Incorrect password format (Password must contain at least eight characters to 60 characters and uppercase and number) \u003cbr\u003e 303 : Update false \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            }
+        },
+        "/auth/forgotPassword/sendCode": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Send code verify to email",
+                "operationId": "ForgotPassword.Send Code to Confirm Reset",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Input Email for forgot password",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ForgotSendCode"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Send mail success",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDefault"
+                        }
+                    },
+                    "403": {
+                        "description": "217 : Fields required \u003cbr\u003e 213 : Invalid email format \u003cbr\u003e 302 : Email not found \u003cbr\u003e 221 : Parse json false \u003cbr\u003e 303 : gen code false"
+                    }
+                }
+            }
+        },
+        "/auth/guest/changePassword": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Change Password",
+                "operationId": "AuthGuestController.Change Password",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for change password",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ChangePassFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Change Password Success",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDefault"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 221 : Parse json false \u003cbr\u003e 111 : Incorrect password \u003cbr\u003e 215 : Incorrect password format (Password must contain at least eight characters to 60 characters and uppercase and number and new password must be different from your previous password) \u003cbr\u003e 217 : Fields required"
+                    }
+                }
+            }
+        },
+        "/auth/guest/forgotPassword/confirmCode": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Input code verify",
+                "operationId": "ForgotPassword.Confirm Code",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for Input new password",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ForgotConfirmCode"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Code exactly",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDefault"
+                        }
+                    },
+                    "403": {
+                        "description": "217 : Fields required \u003cbr\u003e 111 : Incorrect code \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            }
+        },
+        "/auth/guest/forgotPassword/inputNewPassword": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Input code verify \u0026 new password",
+                "operationId": "ForgotPassword.Input New Password",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for Input new password",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ForgotNewPassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A new password has been created",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDefault"
+                        }
+                    },
+                    "403": {
+                        "description": "217 : Fields required \u003cbr\u003e 111 : Token reset incorrect \u003cbr\u003e 215 : Incorrect password format (Password must contain at least eight characters to 60 characters and uppercase and number) \u003cbr\u003e 303 : Update false \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            }
+        },
+        "/auth/guest/forgotPassword/sendCode": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Send link reset password to email",
+                "operationId": "ForgotPassword.Reset Password",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Input Email for forgot password",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ForgotSendCode"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Send mail success",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDefault"
+                        }
+                    },
+                    "403": {
+                        "description": "217 : Fields required \u003cbr\u003e 213 : Invalid email format \u003cbr\u003e 302 : Email not found \u003cbr\u003e 221 : Parse json false \u003cbr\u003e 303 : gen code false"
+                    }
+                }
+            }
+        },
+        "/auth/guest/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Auth Login For Customer",
+                "operationId": "Login.Customer Login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for Login Customer",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login Success",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "217 : Fields required \u003cbr\u003e 213 : Email format invalid \u003cbr\u003e 101 : Permission denied \u003cbr\u003e 111 : Password incorrect \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            }
+        },
+        "/auth/hotel/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Auth Login For Hotel",
+                "operationId": "Login.Hotel Login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for Login Hotel",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login Success",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "217 : Fields required \u003cbr\u003e 213 : Email format invalid \u003cbr\u003e 101 : Permission denied \u003cbr\u003e 111 : Password incorrect \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            }
+        },
+        "/auth/kiosk/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Logout",
+                "operationId": "AuthController.Logout",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Password for logout",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.KioskLogout"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Logout Success",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "104 : Invalid Token \u003cbr\u003e 217 : Fields required \u003cbr\u003e 111 : Incorrect password \u003cbr\u003e 105 : Logout false \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            }
+        },
+        "/auth/line/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Auth Login For Hotel",
+                "operationId": "Login.Hotel Login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for Login Hotel",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login Success",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "217 : Fields required \u003cbr\u003e 213 : Email format invalid \u003cbr\u003e 101 : Permission denied \u003cbr\u003e 111 : Password incorrect \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Logout",
+                "operationId": "AuthController.Logout",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Logout Success",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "104 : Invalid Token \u003cbr\u003e 105 : Logout false"
+                    }
+                }
+            }
+        },
+        "/auth/me": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Get my account infomation",
+                "operationId": "AuthController.Get my account infomation",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token"
+                    }
+                }
+            }
+        },
+        "/auth/refreshToken": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Refresh Token",
+                "operationId": "AuthController.Refresh Token",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Refresh Token Success",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "104 : Invalid Token"
+                    }
+                }
+            }
+        },
+        "/auth/userAppAccount/changePassword": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Change Password",
+                "operationId": "AuthUserAppAcountController.Change Password",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for change password",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ChangePassFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Change Password Success",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDefault"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 221 : Parse json false \u003cbr\u003e 111 : Incorrect password \u003cbr\u003e 215 : Incorrect password format (Password must contain at least eight characters to 60 characters and uppercase and number and new password must be different from your previous password) \u003cbr\u003e 217 : Fields required"
+                    }
+                }
+            }
+        },
+        "/auth/userAppAccount/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "description": "Auth Login For Customer",
+                "operationId": "Login.Customer Login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body for Login Customer",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginUserAppFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login Success",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "217 : Fields required \u003cbr\u003e 213 : Email format invalid \u003cbr\u003e 101 : Permission denied \u003cbr\u003e 111 : Password incorrect \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            }
+        },
+        "/bookings/": {
+            "get": {
+                "tags": [
+                    "bookings"
+                ],
+                "description": "get Bookings",
+                "operationId": "BookingsController.Get List Booking",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "hotelId",
+                        "description": "hotelId",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "checkinFromDate",
+                        "description": "check in from date. e.g 2018/12/11",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "checkinToDate",
+                        "description": "check in to date. e.g 2018/12/13",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "checkoutFromDate",
+                        "description": "check out from date. e.g 2018/12/11",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "checkoutToDate",
+                        "description": "check out to date. e.g 2018/12/13",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "customerId",
+                        "description": "customer id",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerListBooking"
+                        }
+                    },
+                    "403": {
+                        "description": "101 Permission deny \u003cbr\u003e 201 Missing param \u003cbr\u003e 211 Variable is not json \u003cbr\u003e 219 Variable is not positive integer \u003cbr\u003e 220 Variable is not date type \u003cbr\u003e 302 Record not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "bookings"
+                ],
+                "description": "create Bookings",
+                "operationId": "BookingsController.CreateBooking",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Bookings content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.AddBookingStruct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Booking.Id"
+                    },
+                    "403": {
+                        "description": "101 Permission deny \u003cbr\u003e 211 Variable is not json \u003cbr\u003e 303 Save data failure"
+                    }
+                }
+            }
+        },
+        "/bookings/confirmCheckin/{id}": {
+            "post": {
+                "tags": [
+                    "bookings"
+                ],
+                "description": "Confirm Checkin",
+                "operationId": "BookingsController.Confirm Checkin",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The booking id you want to checkin",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Checkin success",
+                        "schema": {
+                            "$ref": "#/definitions/{object}"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 302 : Booking not exists \u003cbr\u003e 303 : Checkin false \u003cbr\u003e 601 : Room not vacant \u003cbr\u003e 603 : Booking is checkin already \u003cbr\u003e 604 : Not checkin day"
+                    }
+                }
+            }
+        },
+        "/bookings/confirmCheckout/{id}": {
+            "post": {
+                "tags": [
+                    "bookings"
+                ],
+                "description": "Confirm Checkout",
+                "operationId": "BookingsController.Confirm Checkout",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The booking id you want to checkin",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Charge success",
+                        "schema": {
+                            "$ref": "#/definitions/{object}"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 302 : Booking not exists \u003cbr\u003e 303 : Checkout false \u003cbr\u003e 602 : Booking not checkin \u003cbr\u003e 606 : Booking has check out \u003cbr\u003e 607 : Booking has reject"
+                    }
+                }
+            }
+        },
+        "/bookings/listBookingNotification/": {
+            "get": {
+                "tags": [
+                    "bookings"
+                ],
+                "description": "get Bookings",
+                "operationId": "BookingsController.Get List Booking",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "hotelId",
+                        "description": "hotelId",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerListBooking"
+                        }
+                    },
+                    "403": {
+                        "description": "101 Permission deny \u003cbr\u003e 201 Missing param \u003cbr\u003e 211 Variable is not json \u003cbr\u003e 219 Variable is not positive integer \u003cbr\u003e 220 Variable is not date type \u003cbr\u003e 302 Record not found"
+                    }
+                }
+            }
+        },
+        "/bookings/reject/{id}": {
+            "put": {
+                "tags": [
+                    "bookings"
+                ],
+                "description": "update the Booking Charges",
+                "operationId": "BookingsController.BookingCharge",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The booking id you want to charge",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Charge success",
+                        "schema": {
+                            "$ref": "#/definitions/{object}"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 302 : Booking not exists \u003cbr\u003e 303 : Update booking false"
+                    }
+                }
+            }
+        },
+        "/bookings/{bookingId}": {
+            "get": {
+                "tags": [
+                    "bookings"
+                ],
+                "description": "get Bookings by id",
+                "operationId": "BookingsController.Detail",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "bookingId",
+                        "description": "Id of Booking",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "customerId",
+                        "description": "Id of Customer",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDetailBooking"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 302 : Booking not exists"
+                    }
+                }
+            }
+        },
+        "/bookings/{id}": {
+            "put": {
+                "tags": [
+                    "bookings"
+                ],
+                "description": "update the Bookings",
+                "operationId": "BookingsController.Update",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Bookings content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.BookingUpdateFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update Success",
+                        "schema": {
+                            "$ref": "#/definitions/{object}"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 217 : Fields required \u003cbr\u003e 302 : Booking not exists \u003cbr\u003e 303 : Update booking false \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "bookings"
+                ],
+                "description": "update the Bookings",
+                "operationId": "BookingsController.Update",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Bookings content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.BookingUpdateFields"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update Success",
+                        "schema": {
+                            "$ref": "#/definitions/{object}"
+                        }
+                    },
+                    "403": {
+                        "description": "101 : Permission denied \u003cbr\u003e 104 : Invalid Token \u003cbr\u003e 217 : Fields required \u003cbr\u003e 302 : Booking not exists \u003cbr\u003e 303 : Update booking false \u003cbr\u003e 221 : Parse json false"
+                    }
+                }
+            }
+        },
+        "/common/configs/": {
+            "get": {
+                "tags": [
+                    "common"
+                ],
+                "description": "get config information",
+                "operationId": "BaseController.Get Config",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerGetConfig"
+                        }
+                    }
+                }
+            }
+        },
+        "/common/file/upload": {
+            "post": {
+                "tags": [
+                    "common"
+                ],
+                "description": "Upload file",
+                "operationId": "FileController.Upload File",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "image",
+                        "description": "The image to upload (jpg,png,gif)",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Upload success",
+                        "schema": {
+                            "$ref": "#/definitions/libs.ResponseJson"
+                        }
+                    },
+                    "403": {
+                        "description": "104 : Invalid Token \u003cbr\u003e 302 : Image not found \u003cbr\u003e 402 : Image is not properly formatted \u003cbr\u003e 303 : Save file false"
+                    }
+                }
+            }
+        },
+        "/guest/": {
+            "get": {
+                "tags": [
+                    "guest"
+                ],
+                "description": "get list customer",
+                "operationId": "GuestsController.Get List Customer",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "bookingId",
+                        "description": "booking id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fullName",
+                        "description": "customer full name. search like",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "status",
+                        "description": "customer status",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "ageFrom",
+                        "description": "customer age",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "ageTo",
+                        "description": "customer age",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerListCustomer"
+                        }
+                    },
+                    "403": {
+                        "description": "101 Permission deny \u003cbr\u003e 201 Missing param \u003cbr\u003e 219 Variable is not positive integer \u003cbr\u003e 302 Record not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "guest"
+                ],
+                "description": "create Guest",
+                "operationId": "GuestsController.CreateGuest",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "param",
+                        "name": "bookingId",
+                        "description": "booking id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Guest content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GuestInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Guest"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/guest/saveCustomerPassportImage/{id}": {
+            "put": {
+                "tags": [
+                    "guest"
+                ],
+                "description": "Save Customer Passport Image",
+                "operationId": "GuestsController.UpdateCustomerPassportImage",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The Id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for CustomersUpdate content",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.FileImage"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Customers"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            }
+        },
+        "/guest/selectOrCreateCustomer/": {
+            "post": {
+                "tags": [
+                    "guest"
+                ],
+                "description": "create selectOrCreateCustomer",
+                "operationId": "GuestsController.SelectOrCreateCustomer",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Customers content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Customers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Customers"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/guest/{lineId}": {
+            "put": {
+                "tags": [
+                    "guest"
+                ],
+                "description": "update the Customers",
+                "operationId": "GuestsController.UpdateCustomer",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "lineId",
+                        "description": "The LineId you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Customers content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Customers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Customers"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            }
+        },
+        "/hotels/": {
+            "post": {
+                "tags": [
+                    "hotels"
+                ],
+                "description": "create Hotels",
+                "operationId": "HotelsController.Create Hotel",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Hotels content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.InsertHotel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Hotels.Id"
+                    },
+                    "403": {
+                        "description": "body is empty \u003cbr\u003e 211 Variable is not json type \u003cbr\u003e 217 Variable required \u003cbr\u003e 303 Save data failures"
+                    }
+                }
+            }
+        },
+        "/hotels/GetAllHotels/": {
+            "get": {
+                "tags": [
+                    "hotels"
+                ],
+                "description": "get Hotels",
+                "operationId": "HotelsController.Get All Hotels",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "hotelName",
+                        "description": "search like hotel name",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "status",
+                        "description": "hotel status. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "hotelAdminName",
+                        "description": "hotel admin name, search like",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "createdAtTo",
+                        "description": "hotel created at. Must be date eg. 2018-12-27",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "createdAtFrom",
+                        "description": "hotel created at. Must be date eg. 2018-12-27",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "Page of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerListHotels"
+                        }
+                    },
+                    "403": {
+                        "description": "\u003cbr\u003e 211 Variable is not json type \u003cbr\u003e 217 Variable required \u003cbr\u003e 220 Variable is not date type"
+                    }
+                }
+            }
+        },
+        "/hotels/addFmcToken": {
+            "post": {
+                "tags": [
+                    "hotels"
+                ],
+                "description": "add fmc token to hotel",
+                "operationId": "HotelsController.AddFcmToken",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for insert fcm token",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.InsertFcmToken"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Insert fmc token success!",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerAddFcmToken"
+                        }
+                    },
+                    "403": {
+                        "description": "104 : Invalid token \u003cbr\u003e 221 : Parse json false \u003cbr\u003e 217 : Fields required \u003cbr\u003e 302 : Hotel not exists \u003cbr\u003e 303 : Insert Fcm token false"
+                    }
+                }
+            }
+        },
+        "/hotels/detailHotel/{id}": {
+            "get": {
+                "tags": [
+                    "hotels"
+                ],
+                "description": "get Hotels by id",
+                "operationId": "UnauthorHotelController.Detail",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDetailHotels"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty \u003cbr\u003e 201 Missing param \u003cbr\u003e 219 Variable is not positive integer"
+                    }
+                }
+            }
+        },
+        "/hotels/getListHotel/": {
+            "get": {
+                "tags": [
+                    "hotels"
+                ],
+                "description": "get Hotels",
+                "operationId": "UnauthorHotelController.Get List Hotel",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "prefecture",
+                        "description": "prefecture id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "status",
+                        "description": "hotel status",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "Page of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerListHotels"
+                        }
+                    },
+                    "403": {
+                        "description": "\u003cbr\u003e 219 Variable is not positive integer \u003cbr\u003e 302 Record not found"
+                    }
+                }
+            }
+        },
+        "/hotels/listHotelByUserId/": {
+            "get": {
+                "tags": [
+                    "hotels"
+                ],
+                "description": "get Hotels",
+                "operationId": "HotelsController.Get List Hotel User Id",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "userId",
+                        "description": "admin account id. e.g. 1",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "status",
+                        "description": "hotel status",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "Page of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerListHotels"
+                        }
+                    },
+                    "403": {
+                        "description": "201 Missing param \u003cbr\u003e 302 Record not found"
+                    }
+                }
+            }
+        },
+        "/hotels/{id}": {
+            "put": {
+                "tags": [
+                    "hotels"
+                ],
+                "description": "update the Hotels",
+                "operationId": "HotelsController.Update Hotel",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Hotels content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.InsertHotel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerCreateHotels"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int \u003cbr\u003e 211 Variable is not json type \u003cbr\u003e 217 Variable required \u003cbr\u003e 303 Save data failures"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "hotels"
+                ],
+                "description": "delete the Hotels",
+                "operationId": "HotelsController.Delete",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty \u003cbr\u003e 302 Record not found \u003cbr\u003e 303 Save data failures"
+                    }
+                }
+            }
+        },
+        "/rooms/": {
+            "get": {
+                "tags": [
+                    "rooms"
+                ],
+                "description": "get Rooms",
+                "operationId": "RoomsController.Get List Room",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "hotelId",
+                        "description": "hotel id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "roomName",
+                        "description": "search like room name",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "status",
+                        "description": "room status",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "Start page of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerListRoom"
+                        }
+                    },
+                    "403": {
+                        "description": "\u003cbr\u003e 219 Variable is not positive integer \u003cbr\u003e 302 Record not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "rooms"
+                ],
+                "description": "create Rooms",
+                "operationId": "RoomsController.Create Room",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Rooms content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.InsertRooms"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Rooms.Id"
+                    },
+                    "403": {
+                        "description": "body is empty \u003cbr\u003e 211 Variable is not json type \u003cbr\u003e 217 Variable required \u003cbr\u003e 219 Variable is not positive integer"
+                    }
+                }
+            }
+        },
+        "/rooms/getListRoomAvailable/": {
+            "get": {
+                "tags": [
+                    "rooms"
+                ],
+                "description": "get Rooms",
+                "operationId": "RoomsController.Get List Room",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "hotelId",
+                        "description": "hotel id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "checkinDate",
+                        "description": "check in date. e.g 2018/12/11",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "checkoutDate",
+                        "description": "check out date. e.g 2018/12/13",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "limit",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerListRoom"
+                        }
+                    },
+                    "403": {
+                        "description": "\u003cbr\u003e 219 Variable is not positive integer \u003cbr\u003e 302 Record not found"
+                    }
+                }
+            }
+        },
+        "/rooms/{id}": {
+            "get": {
+                "tags": [
+                    "rooms"
+                ],
+                "description": "get Rooms by id",
+                "operationId": "RoomsController.Detail",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerDetailRoom"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty \u003cbr\u003e 201 Missing param \u003cbr\u003e 219 Variable is not positive integer \u003cbr\u003e 302 Record not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "rooms"
+                ],
+                "description": "update the Rooms",
+                "operationId": "RoomsController.UpdateRoom",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Rooms content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.InsertRooms"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SwaggerCreateRoom"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int \u003cbr\u003e 211 Variable is not json type \u003cbr\u003e 217 Variable required \u003cbr\u003e 219 Variable is not positive integer"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "rooms"
+                ],
+                "description": "delete the Rooms",
+                "operationId": "RoomsController.Delete",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty \u003cbr\u003e 302 Record not found \u003cbr\u003e 303 Save data failures"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "104919.0xc0007c1d10.false": {
+            "title": "false",
+            "type": "object"
+        },
+        "2798.0xc0006265d0.false": {
+            "title": "false",
+            "type": "object"
+        },
+        "2852.0xc000626600.false": {
+            "title": "false",
+            "type": "object"
+        },
+        "libs.ResponseJson": {
+            "title": "ResponseJson",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/2798.0xc0006265d0.false"
+                },
+                "detailErrorCode": {
+                    "$ref": "#/definitions/2852.0xc000626600.false"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.AddAdminAccountStruct": {
+            "title": "AddAdminAccountStruct",
+            "type": "object",
+            "properties": {
+                "Email": {
+                    "type": "string"
+                },
+                "FullName": {
+                    "type": "string"
+                },
+                "IsRoot": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "RoleId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "models.AddBookingStruct": {
+            "title": "AddBookingStruct",
+            "type": "object",
+            "properties": {
+                "BookingOtaId": {
+                    "type": "string"
+                },
+                "CheckinDate": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "CheckoutDate": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "HotelId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "LastRoomCharge": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "NightCount": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "RoomAmount": {
+                    "type": "string"
+                },
+                "RoomId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ServiceAmount": {
+                    "type": "string"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "models.AdminAccounts": {
+            "title": "AdminAccounts",
+            "type": "object",
+            "properties": {
+                "CreatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "CreatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "DeletedAt": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "FullName": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "IsRoot": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Password": {
+                    "type": "string"
+                },
+                "RoleId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "UpdatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "UpdatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.BookingUpdateFields": {
+            "title": "BookingUpdateFields",
+            "type": "object",
+            "properties": {
+                "checkin_date": {
+                    "type": "string"
+                },
+                "checkout_date": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "room_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.Bookingdata": {
+            "title": "Bookingdata",
+            "type": "object",
+            "properties": {
+                "BookingOtaId": {
+                    "type": "string"
+                },
+                "CheckinDate": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "CheckoutDate": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "CreatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "CreatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "DeletedAt": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "HotelId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "LastRoomCharge": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "ListCustomer": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Customers"
+                    }
+                },
+                "ListRoom": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Roomdata"
+                    }
+                },
+                "ListUserApp": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.UserAppAccount"
+                    }
+                },
+                "NightCount": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "RoomAmount": {
+                    "type": "string"
+                },
+                "ServiceAmount": {
+                    "type": "string"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "UpdatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "UpdatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.ChangePassFields": {
+            "title": "ChangePassFields",
+            "type": "object",
+            "properties": {
+                "newPass": {
+                    "type": "string"
+                },
+                "oldPass": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Customers": {
+            "title": "Customers",
+            "type": "object"
+        },
+        "models.FileImage": {
+            "title": "FileImage",
+            "type": "object",
+            "properties": {
+                "Type": {
+                    "type": "string"
+                },
+                "Url": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ForgotConfirmCode": {
+            "title": "ForgotConfirmCode",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ForgotNewPassword": {
+            "title": "ForgotNewPassword",
+            "type": "object",
+            "properties": {
+                "newPassword": {
+                    "type": "string"
+                },
+                "tokenReset": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ForgotSendCode": {
+            "title": "ForgotSendCode",
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GuestInput": {
+            "title": "GuestInput",
+            "type": "object",
+            "properties": {
+                "Address": {
+                    "type": "string"
+                },
+                "BirthDay": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "BookingCount": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "Files": {
+                    "type": "string"
+                },
+                "FullName": {
+                    "type": "string"
+                },
+                "Gender": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "PassportNumber": {
+                    "type": "string"
+                },
+                "Phone": {
+                    "type": "string"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "models.HotelAdmin": {
+            "title": "HotelAdmin",
+            "type": "object",
+            "properties": {
+                "AdminAccountId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "FullName": {
+                    "type": "string"
+                },
+                "HotelId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.Hoteldata": {
+            "title": "Hoteldata",
+            "type": "object",
+            "properties": {
+                "Address": {
+                    "type": "string"
+                },
+                "AverageRating": {
+                    "type": "string"
+                },
+                "CheckinTime": {
+                    "type": "string"
+                },
+                "CheckoutTime": {
+                    "type": "string"
+                },
+                "CreatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "CreatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "DeletedAt": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "FcmToken": {
+                    "type": "string"
+                },
+                "Files": {
+                    "type": "string"
+                },
+                "HotelAdmin": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.HotelAdmin"
+                    }
+                },
+                "HotelMultiLanguage": {
+                    "type": "string"
+                },
+                "HotelRoomVacant": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Rooms"
+                    }
+                },
+                "HotelSubType": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "HotelType": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Hotline": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Latitude": {
+                    "type": "string"
+                },
+                "Longitude": {
+                    "type": "string"
+                },
+                "MaxRoomPrice": {
+                    "type": "string"
+                },
+                "MinRoomPrice": {
+                    "type": "string"
+                },
+                "Prefecture": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "UpdatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "UpdatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.Hotels": {
+            "title": "Hotels",
+            "type": "object",
+            "properties": {
+                "Address": {
+                    "type": "string"
+                },
+                "AverageRating": {
+                    "type": "string"
+                },
+                "CheckinTime": {
+                    "type": "string"
+                },
+                "CheckoutTime": {
+                    "type": "string"
+                },
+                "CreatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "CreatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "DeletedAt": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "FcmToken": {
+                    "type": "string"
+                },
+                "Files": {
+                    "type": "string"
+                },
+                "HotelMultiLanguage": {
+                    "type": "string"
+                },
+                "HotelSubType": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "HotelType": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Hotline": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Latitude": {
+                    "type": "string"
+                },
+                "Longitude": {
+                    "type": "string"
+                },
+                "Prefecture": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "UpdatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "UpdatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.InsertAccountFields": {
+            "title": "InsertAccountFields",
+            "type": "object",
+            "properties": {
+                "Email": {
+                    "type": "string"
+                },
+                "FullName": {
+                    "type": "string"
+                },
+                "Password": {
+                    "type": "string"
+                },
+                "RoleId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "models.InsertFcmToken": {
+            "title": "InsertFcmToken",
+            "type": "object",
+            "properties": {
+                "fcmToken": {
+                    "type": "string"
+                },
+                "hotelId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.InsertHotel": {
+            "title": "InsertHotel",
+            "type": "object",
+            "properties": {
+                "Address": {
+                    "type": "string"
+                },
+                "AverageRating": {
+                    "type": "string"
+                },
+                "CheckinTime": {
+                    "type": "string"
+                },
+                "CheckoutTime": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "FcmToken": {
+                    "type": "string"
+                },
+                "Files": {
+                    "type": "string"
+                },
+                "HotelAdmin": {
+                    "type": "string"
+                },
+                "HotelMultiLanguage": {
+                    "type": "string"
+                },
+                "HotelSubType": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "HotelType": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Hotline": {
+                    "type": "string"
+                },
+                "Latitude": {
+                    "type": "string"
+                },
+                "Longitude": {
+                    "type": "string"
+                },
+                "Prefecture": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "models.InsertRooms": {
+            "title": "InsertRooms",
+            "type": "object",
+            "properties": {
+                "BedTypeId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Files": {
+                    "type": "string"
+                },
+                "FloorNumber": {
+                    "type": "string"
+                },
+                "HotelId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "MaxCapacity": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NumberOfBed": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NumberOfExtraBed": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "PetAllow": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Price": {
+                    "type": "string"
+                },
+                "RoomMultiLanguage": {
+                    "type": "string"
+                },
+                "RoomNumber": {
+                    "type": "string"
+                },
+                "RoomServices": {
+                    "type": "string"
+                },
+                "RoomSize": {
+                    "type": "string"
+                },
+                "RoomTypeId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "SmokingAllow": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "models.JsonResponse": {
+            "title": "JsonResponse",
+            "type": "object"
+        },
+        "models.KioskLogout": {
+            "title": "KioskLogout",
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.LoginFields": {
+            "title": "LoginFields",
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.LoginUserAppFields": {
+            "title": "LoginUserAppFields",
+            "type": "object",
+            "properties": {
+                "login_name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Roomdata": {
+            "title": "Roomdata",
+            "type": "object",
+            "properties": {
+                "BedTypeId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "CreatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "CreatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "DeletedAt": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Files": {
+                    "type": "string"
+                },
+                "FloorNumber": {
+                    "type": "string"
+                },
+                "HotelId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "MaxCapacity": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NumberOfBed": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NumberOfExtraBed": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "PetAllow": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Price": {
+                    "type": "string"
+                },
+                "RoomMultiLanguage": {
+                    "$ref": "#/definitions/models.roomMultiLanguage"
+                },
+                "RoomNumber": {
+                    "type": "string"
+                },
+                "RoomSize": {
+                    "type": "string"
+                },
+                "RoomTypeId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "SmokingAllow": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "UpdatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "UpdatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.Rooms": {
+            "title": "Rooms",
+            "type": "object",
+            "properties": {
+                "BedTypeId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "CreatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "CreatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "DeletedAt": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Files": {
+                    "type": "string"
+                },
+                "FloorNumber": {
+                    "type": "string"
+                },
+                "HotelId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "MaxCapacity": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NumberOfBed": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NumberOfExtraBed": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "PetAllow": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Price": {
+                    "type": "string"
+                },
+                "RoomMultiLanguage": {
+                    "type": "string"
+                },
+                "RoomNumber": {
+                    "type": "string"
+                },
+                "RoomSize": {
+                    "type": "string"
+                },
+                "RoomTypeId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "SmokingAllow": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "UpdatedAt": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "UpdatedUser": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.SwaggerAddFcmToken": {
+            "title": "SwaggerAddFcmToken",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/models.Hotels"
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerCreateHotels": {
+            "title": "SwaggerCreateHotels",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/models.Hoteldata"
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerCreateRoom": {
+            "title": "SwaggerCreateRoom",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/models.Roomdata"
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerDefault": {
+            "title": "SwaggerDefault",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/104919.0xc0007c1d10.false"
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerDetailAccount": {
+            "title": "SwaggerDetailAccount",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/models.AdminAccounts"
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerDetailBooking": {
+            "title": "SwaggerDetailBooking",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/models.Bookingdata"
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerDetailHotels": {
+            "title": "SwaggerDetailHotels",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/models.Hoteldata"
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerDetailRoom": {
+            "title": "SwaggerDetailRoom",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/models.Roomdata"
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerGetConfig": {
+            "title": "SwaggerGetConfig",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object"
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerListAccount": {
+            "title": "SwaggerListAccount",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.AdminAccounts"
+                    }
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerListBooking": {
+            "title": "SwaggerListBooking",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Bookingdata"
+                    }
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerListCustomer": {
+            "title": "SwaggerListCustomer",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Customers"
+                    }
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerListHotels": {
+            "title": "SwaggerListHotels",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Hoteldata"
+                    }
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "limit": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SwaggerListRoom": {
+            "title": "SwaggerListRoom",
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Roomdata"
+                    }
+                },
+                "detailErrorCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UpdateAccountFields": {
+            "title": "UpdateAccountFields",
+            "type": "object",
+            "properties": {
+                "Email": {
+                    "type": "string"
+                },
+                "FullName": {
+                    "type": "string"
+                },
+                "Password": {
+                    "type": "string"
+                },
+                "RoleId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "models.UpdateMyAccount": {
+            "title": "UpdateMyAccount",
+            "type": "object",
+            "properties": {
+                "FullName": {
+                    "type": "string"
+                },
+                "files": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UserAppAccount": {
+            "title": "UserAppAccount",
+            "type": "object",
+            "properties": {
+                "BookingId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "LoginName": {
+                    "type": "string"
+                },
+                "RoomId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "models.roomMultiLanguage": {
+            "title": "roomMultiLanguage",
+            "type": "object",
+            "properties": {
+                "BathroomDescription": {
+                    "type": "string"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "RoomName": {
+                    "type": "string"
+                }
+            }
+        },
+        "{object}": {
+            "title": "{object}",
+            "type": "object"
+        }
+    },
+    "tags": [
+        {
+            "name": "account",
+            "description": "AdminAccountsController operations for AdminAccounts\n"
+        },
+        {
+            "name": "bookings",
+            "description": "BookingsController operations for Bookings\n"
+        },
+        {
+            "name": "hotels",
+            "description": "UnauthorHotelController operations for Hotels\n"
+        },
+        {
+            "name": "rooms",
+            "description": "RoomsController operations for Rooms\n"
+        },
+        {
+            "name": "guest",
+            "description": "CustomersController operations for Customers\n"
+        },
+        {
+            "name": "common",
+            "description": "FileController operations for File\n"
+        }
+    ]
+}
